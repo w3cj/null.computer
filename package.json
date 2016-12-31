@@ -1,0 +1,23 @@
+{
+  "name": "null.computer",
+  "version": "1.0.0",
+  "description": "A web log by me.",
+  "main": "index.js",
+  "scripts": {
+    "start": "live-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/w3cj/null.computer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/w3cj/null.computer/issues"
+  },
+  "homepage": "https://github.com/w3cj/null.computer#readme",
+  "devDependencies": {
+    "live-server": "^1.1.0"
+  }
+}
