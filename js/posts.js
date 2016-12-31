@@ -5,9 +5,14 @@ ghBlog
   .then(posts => {
     const postsHTML = posts
                         .reduce((html, post) => {
+                          const created = post.commits[post.commits.length - 1].date;
+                          const updated = post.commits[0].date;
                           return `
                           ${html}
                           <section>
+                            <small><strong>Path:</strong> ${post.path}</small><br>
+                            <small><strong>Logged:</strong> ${created}</small>
+                            ${ updated == created ? '' : `<br><small><strong>Updated:</strong> ${updated}</small>` }
                             ${post.html}
                             <div>
                               <h3>Post History</h3>
