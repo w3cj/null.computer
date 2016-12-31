@@ -32,6 +32,8 @@ hr {
 .highlight, .CodeMirror {
   background-color: #0F0F0F !important;
   color: #FFF !important;
+	overflow: auto;
+	padding: 1em;
 }
 .blob-code, .blob-code-inner {
   color: #FFF !important;
