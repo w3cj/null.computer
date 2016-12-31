@@ -10,10 +10,6 @@ body {
 	font-size: 1vw;
 }
 
-h1 {
-	text-align: center;
-}
-
 section h2 {
 	color: red;
 	text-align: center;
@@ -26,6 +22,11 @@ section {
 
 hr {
   border: 5px dotted lime;
+}
+
+footer {
+	text-align: center;
+	border: 5px solid red;
 }
 
 /*! Vibrant Ink */

@@ -3,39 +3,28 @@ const REPO_URL = `${API_URL}/repos/w3cj/null.computer/contents/posts`;
 
 fetch(REPO_URL)
   .then(result => result.json())
-  .then(posts => {
-    return Promise.all(posts.map(loadPost));
-  }).then(posts => {
-    let html = '<hr>';
-    posts.reverse().forEach(post => {
-      html += `<section>${post}</section><hr>`;
-    });
-    document.querySelector('#posts').innerHTML = html;
-  });
+  .then(infos => Promise.all(infos.reverse().map(loadPost)))
+  .then(posts => posts
+                  .reduce((html, post) =>
+                  `${html}<section>${post}</section><hr>`,
+                  '<hr>'))
+  .then(html => document.querySelector('#posts').innerHTML = html);
 
-function loadPost(post) {
-  const loadedPost = localStorage[post.path + post.sha];
-  if(loadedPost) {
-    return Promise.resolve(loadedPost);
+function loadPost(info) {
+  const loadedSha = localStorage[`${info.path}-sha`];
+  if(loadedSha && loadedSha == info.sha) {
+    const loadedHTML = localStorage[`${info.path}-html`];
+    return Promise.resolve(loadedHTML);
   } else {
-    return fetch(post.path)
-      .then(result => result.text())
-      .then(renderMarkdown)
+    return fetch(info.url, {
+        headers: {
+          accept: 'application/vnd.github.v3.html+json'
+        }
+      }).then(result => result.text())
       .then(html => {
-        localStorage[post.path + post.sha] = html;
+        localStorage[`${info.path}-sha`] = info.sha;
+        localStorage[`${info.path}-html`] = html;
         return html;
       });
   }
-}
-
-function renderMarkdown(text) {
-  return fetch(`${API_URL}/markdown`, {
-            method: 'POST',
-            headers: {
-              'content-type': 'application/json'
-            },
-            body: JSON.stringify({
-              text
-            })
-          }).then(result => result.text());
 }
