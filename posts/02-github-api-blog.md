@@ -1,5 +1,5 @@
 ## Github API Blog
-Instead of using a static site generator to create a blog hosted on github-pages, I I thought it would be an interesting challenge to create a static blog using only the [github API](https://developer.github.com/v3/).
+Instead of using a static site generator to create a blog hosted on github-pages, I thought it would be an interesting challenge to create a static blog using only the [github API](https://developer.github.com/v3/).
 
 ### Basic Idea
 * Step 1: Use the github repo contents API endpoint to enumerate all markdown files inside a folder in a github repo.
@@ -19,9 +19,9 @@ fetch(REPO_URL)
   .then(posts => {
     return Promise.all(posts.map(loadPost));
   }).then(posts => {
-    let html = '';
-    posts.forEach(post => {
-      html += `<section>${post}</section>`;
+    let html = '<hr>';
+    posts.reverse().forEach(post => {
+      html += `<section>${post}</section><hr>`;
     });
     document.querySelector('#posts').innerHTML = html;
   });
@@ -35,7 +35,7 @@ function loadPost(post) {
       .then(result => result.text())
       .then(renderMarkdown)
       .then(html => {
-        // Cache the rendered markdown in localStorage!
+        // Cache the rendered html for faster load times!
         localStorage[post.path + post.sha] = html;
         return html;
       });

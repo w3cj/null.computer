@@ -6,9 +6,9 @@ fetch(REPO_URL)
   .then(posts => {
     return Promise.all(posts.map(loadPost));
   }).then(posts => {
-    let html = '';
-    posts.forEach(post => {
-      html += `<section>${post}</section>`;
+    let html = '<hr>';
+    posts.reverse().forEach(post => {
+      html += `<section>${post}</section><hr>`;
     });
     document.querySelector('#posts').innerHTML = html;
   });
