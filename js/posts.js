@@ -1,30 +1,30 @@
-const API_URL = 'https://api.github.com';
-const REPO_URL = `${API_URL}/repos/w3cj/null.computer/contents/posts`;
+const ghBlog = new GHBlog('w3cj', 'null.computer');
 
-fetch(REPO_URL)
-  .then(result => result.json())
-  .then(infos => Promise.all(infos.reverse().map(loadPost)))
-  .then(posts => posts
-                  .reduce((html, post) =>
-                  `${html}<section>${post}</section><hr>`,
-                  '<hr>'))
-  .then(html => document.querySelector('#posts').innerHTML = html);
+ghBlog
+  .getPosts()
+  .then(posts => {
+    const postsHTML = posts
+                        .reduce((html, post) => {
+                          return `
+                          ${html}
+                          <section>
+                            ${post.html}
+                            <div>
+                              <h3>Post History</h3>
+                              ${createCommitList(post.commits)}
+                            </div>
+                          </section>
+                          <hr>`;
+                        }, '<hr>');
+    document.querySelector('#posts').innerHTML = postsHTML;
+  });
 
-function loadPost(info) {
-  const loadedSha = localStorage[`${info.path}-sha`];
-  if(loadedSha && loadedSha == info.sha) {
-    const loadedHTML = localStorage[`${info.path}-html`];
-    return Promise.resolve(loadedHTML);
-  } else {
-    return fetch(info.url, {
-        headers: {
-          accept: 'application/vnd.github.v3.html+json'
-        }
-      }).then(result => result.text())
-      .then(html => {
-        localStorage[`${info.path}-sha`] = info.sha;
-        localStorage[`${info.path}-html`] = html;
-        return html;
-      });
-  }
+function createCommitList(commits) {
+  return commits.reduce((commits, commit) => {
+    return `
+    ${commits}
+    <li>
+      <strong class="commit-date">${commit.date}</strong> <a href="${commit.url}">${commit.message}</a>
+    </li>`;
+  }, '<ul>') + '</ul>';
 }

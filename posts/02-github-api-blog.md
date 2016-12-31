@@ -50,5 +50,3 @@ function loadPost(info) {
 Right now, all files in the [`posts` folder of this repo](https://github.com/w3cj/null.computer/tree/master/posts) will be added to this page. As this blog grows, this will not scale. Eventually I would like to add SPA style single page posts and lazy loading.
 
 The posts are simple markdown files right now. In the future, I could incorporate metadata at the top of a file to add title, date, tags etc.
-
-<small>Saturday, December 31st, 2016, 10:39:42 AM</small>
