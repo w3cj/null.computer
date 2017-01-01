@@ -42,12 +42,13 @@ class GHBlog {
   fetchCommits(path) {
     return fetch(`${this.COMMITS_URL}${path}`)
       .then(result => result.json())
-      .then(commits => commits.map(commit => {
+      .then(commits => {
+        const created = commits[commits.length - 1].commit.author.date;
+        const updated = commits[0].commit.author.date;
         return {
-          date: new Date(commit.commit.author.date).toLocaleString(),
-          message: commit.commit.message,
-          url: commit.html_url
+          created: new Date(created).toLocaleString(),
+          updated: new Date(updated).toLocaleString()
         };
-      }));
+      });
   }
 }
