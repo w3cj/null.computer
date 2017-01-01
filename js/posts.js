@@ -1,5 +1,7 @@
 if(localStorage.postsHTML) {
   setPostsHTML(localStorage.postsHTML);
+} else {
+  localStorage.clear();
 }
 
 const ghBlog = new GHBlog('w3cj', 'null.computer');
