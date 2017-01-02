@@ -20,10 +20,14 @@ a {
 	align-items: center;
 }
 
+.feed-img {
+	font-size: 2px;
+}
+
 .feeds {
 	display: flex;
 	flex-direction: column;
-	margin-left: 1em;
+	margin-left: 0.5em;
 }
 
 .logo-nav {
