@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "live-server",
-    "feed": "node tasks/feed.js"
+    "feed": "node tasks/feed.js",
+    "gh-pages": "git checkout gh-pages && git merge master && git push origin gh-pages && git checkout master"
   },
   "repository": {
     "type": "git",
