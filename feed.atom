@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://null.computer</id>
     <title>null.computer</title>
-    <updated>2017-01-02T01:36:42Z</updated>
+    <updated>2017-01-02T02:44:57Z</updated>
     <author>
         <name>CJ R.</name>
         <email>hello@cjr.co.de</email>
@@ -12,11 +12,95 @@
     <subtitle>A web log by w3cj</subtitle>
     <generator>Feed for Node.js</generator>
     <entry>
+        <title type="html"><![CDATA[RSS/Atom Feed Generator]]></title>
+        <id>http://null.computer#posts/04-feed-generator.md</id>
+        <link href="http://null.computer#posts/04-feed-generator.md">
+        </link>
+        <updated>2017-01-02T02:44:57Z</updated>
+        <summary type="html"><![CDATA[<h2 id="rss-atom-feed-generator">RSS/Atom Feed Generator</h2>
+<p>The fantastic <a href="https://github.com/dannyfritz">Mr. Fritz</a> (aka Danny) <a href="https://github.com/w3cj/null.computer/issues/1">pointed out</a> that every great blog has a consumable feed. Well Mr. Fritz, this one is for you!</p>
+<p>null.computer now proudly broadcasts updates to the world!</p>
+<p>Feeds are available as <a href="http://null.computer/feed.rss">RSS 2.0</a> and <a href="http://null.computer/feed.atom">Atom 1.0</a></p>
+<h3 id="how-you-do-that-">How you do that?</h3>
+<p>For my first attempt at this, I re-used my existing github API code to retrieve rendered posts and commit history. I soon ran into the dreaded <code>Github API Rate limit exceeded</code> message and decided an entirely local approach was the way to go.</p>
+<p>I used a few awesome modules from npm to accomplish this.</p>
+<p><a href="https://www.npmjs.com/package/marked"><code>marked</code></a> was used to generate the markdown for each post.</p>
+<p>To get the created/updated dates for each post, I explored using an <a href="https://www.npmjs.com/search?q=git%20log%20parse">npm module for git logs</a>, but ultimately could not find one that would allow me to get the logs for a single file. I ended up using <a href="https://nodejs.org/api/child_process.html#child_process_child_process_exec_command_options_callback"><code>child_process.exec</code></a> with <code>git log --follow &lt;path&gt;</code> to get the created/updated dates (commit history) for each post.</p>
+<pre><code class="lang-js">const {exec} = require(&#39;child_process&#39;);
+
+function getCommits(path) {
+  return new Promise((resolve, reject) =&gt; {
+    exec(`git log --follow ${path}`, (err, stdout, stderr) =&gt; {
+      let created = new Date();
+      let updated = new Date();
+
+      if(!err &amp;&amp; stdout) {
+        const commits = stdout.match(/Date:(.*)/g);
+        if(commits.length &gt; 0) {
+          created = new Date(commits[commits.length - 1].split(&#39;Date:&#39;)[1]);
+          updated = new Date(commits[0].split(&#39;Date:&#39;)[1]);
+        }
+      } else {
+        console.log(&#39;no commit history found&#39;, path);
+      }
+
+      resolve({
+        created,
+        updated
+      });
+    });
+  });
+}
+</code></pre>
+<p>Lastly, I used <a href="https://www.npmjs.com/package/feed"><code>feed</code></a> to generate the generate RSS 2.0 and Atom 1.0 feeds..</p>
+<p><a href="https://www.npmjs.com/package/feed"><code>feed</code></a> has a simple API:</p>
+<pre><code class="lang-js">const Feed = require(&#39;feed&#39;);
+
+const author = {
+  name: &#39;CJ R.&#39;,
+  email: &#39;hello@cjr.co.de&#39;,
+  link: &#39;https://github.com/w3cj&#39;
+};
+
+const feedURL = &#39;http://null.computer&#39;;
+
+const feed = new Feed({
+  title: &#39;null.computer&#39;,
+  description: &#39;A web log by w3cj&#39;,
+  id: feedURL,
+  link: feedURL,
+  author
+});
+
+feed.addItem({
+  title: &#39;Hello Friend&#39;,
+  id: `${feedURL}#posts/01-hello-friend.md`,
+  link: `${feedURL}#posts/01-hello-friend.md`,
+  description: &#39;&lt;h2&gt;Hello Friend&lt;/h2&gt;&#39;,
+  author: [author],
+  published: new Date(),
+  date: new Date()
+});
+
+const xml = feed.render(&#39;atom-1.0&#39;);
+console.log(xml);
+</code></pre>
+<p>The full code to generate the feeds can be found <a href="https://github.com/w3cj/null.computer/blob/master/tasks/feed.js">here</a>.</p>
+<p>The only downside to all of this, is that I&#39;ll need to re-generate the feed each time I write a new post. Maybe I&#39;ll add a pre-commit task? This is slowly turning into a static site generator...</p>
+]]></summary>
+        <author>
+            <name>CJ R.</name>
+            <email>hello@cjr.co.de</email>
+            <uri>https://github.com/w3cj</uri>
+        </author>
+        <published>2017-01-02T02:44:57Z</published>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[Using the Github Commits API for Post Metadata]]></title>
         <id>http://null.computer#posts/03-post-commits-api.md</id>
         <link href="http://null.computer#posts/03-post-commits-api.md">
         </link>
-        <updated>2017-01-01T17:09:40Z</updated>
+        <updated>2017-01-01T16:48:58Z</updated>
         <summary type="html"><![CDATA[<h2 id="using-the-github-commits-api-for-post-metadata">Using the Github Commits API for Post Metadata</h2>
 <p>I wanted to add a dynamic <code>created</code> and <code>updated</code> date to the posts for this blog. For this I found the <a href="https://developer.github.com/v3/repos/commits/">commits API endpoint</a>.</p>
 <p>Using this endpoint, I was able to get all of the commits for each post and determine a created and updated date.</p>
@@ -38,14 +122,14 @@ ${ post.commits.updated == post.commits.created ? &#39;&#39; :
             <email>hello@cjr.co.de</email>
             <uri>https://github.com/w3cj</uri>
         </author>
-        <published>2016-12-30T13:31:56Z</published>
+        <published>2016-12-31T19:56:50Z</published>
     </entry>
     <entry>
         <title type="html"><![CDATA[Github API Based Static Blog]]></title>
         <id>http://null.computer#posts/02-github-api-blog.md</id>
         <link href="http://null.computer#posts/02-github-api-blog.md">
         </link>
-        <updated>2017-01-01T17:09:40Z</updated>
+        <updated>2016-12-31T19:56:50Z</updated>
         <summary type="html"><![CDATA[<h2 id="github-api-based-static-blog">Github API Based Static Blog</h2>
 <p>Instead of using a static site generator to create a blog hosted on github-pages, I thought it would be an interesting challenge to create a static blog using only the <a href="https://developer.github.com/v3/">github API</a>.</p>
 <p>The github API offers up a few endpoints of interest:</p>
@@ -98,14 +182,14 @@ function loadPost(info) {
             <email>hello@cjr.co.de</email>
             <uri>https://github.com/w3cj</uri>
         </author>
-        <published>2016-12-30T13:31:56Z</published>
+        <published>2016-12-31T14:20:40Z</published>
     </entry>
     <entry>
         <title type="html"><![CDATA[Hello Friend]]></title>
         <id>http://null.computer#posts/01-hello-friend.md</id>
         <link href="http://null.computer#posts/01-hello-friend.md">
         </link>
-        <updated>2017-01-01T17:09:40Z</updated>
+        <updated>2016-12-31T19:56:50Z</updated>
         <summary type="html"><![CDATA[<h2 id="hello-friend">Hello Friend</h2>
 <p>I will log things here.</p>
 <pre><code class="lang-js">function helloFriend() {
@@ -118,6 +202,6 @@ function loadPost(info) {
             <email>hello@cjr.co.de</email>
             <uri>https://github.com/w3cj</uri>
         </author>
-        <published>2016-12-30T13:31:56Z</published>
+        <published>2016-12-31T13:35:52Z</published>
     </entry>
 </feed>

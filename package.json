@@ -19,10 +19,9 @@
   },
   "homepage": "https://github.com/w3cj/null.computer#readme",
   "devDependencies": {
-    "live-server": "^1.1.0",
     "cheerio": "^0.22.0",
-    "feedster": "^1.0.1",
     "git-log-parser": "^1.2.0",
+    "live-server": "^1.1.0",
     "marked": "^0.3.6",
     "node-fetch": "^1.6.3",
     "stream-to-array": "^2.3.0",

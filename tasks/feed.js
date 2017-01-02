@@ -1,8 +1,7 @@
 const fs = require('fs');
 const cheerio = require('cheerio');
 const marked = require('marked');
-const gitLog = require('git-log-parser');
-const toArray = require('stream-to-array');
+const {exec} = require('child_process');
 
 const Feed = require('./lib/jpmonette.feed');
 
@@ -61,17 +60,18 @@ function getPosts() {
 
 function getCommits(path) {
   return new Promise((resolve, reject) => {
-    const logStream = gitLog.parse({}, {
-      '--follow': `${path}`
-    });
-
-    toArray(logStream, function (err, commits) {
+    exec(`git log --follow ${path}`, (err, stdout, stderr) => {
       let created = new Date();
       let updated = new Date();
 
-      if(!err && commits.length > 0) {
-        created = commits[commits.length - 1].author.date;
-        updated = commits[0].author.date;
+      if(!err && stdout) {
+        const commits = stdout.match(/Date:(.*)/g);
+        if(commits.length > 0) {
+          created = new Date(commits[commits.length - 1].split('Date:')[1]);
+          updated = new Date(commits[0].split('Date:')[1]);
+        }
+      } else {
+        console.log('no commit history found', path);
       }
 
       resolve({

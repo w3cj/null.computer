@@ -6,3 +6,8 @@ A web log by me.
 yarn
 npm start
 ```
+
+## Generate RSS/Atom Feeds
+```sh
+npm run feed
+```
