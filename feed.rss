@@ -4,14 +4,44 @@
         <title>null.computer</title>
         <description>A web log by w3cj</description>
         <link>http://null.computer</link>
-        <lastBuildDate>Mon, 02 Jan 2017 03:01:03 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 02 Jan 2017 08:14:05 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Why build from scratch?]]></title>
+            <link>http://null.computer#posts/05-why-build-from-scratch.md</link>
+            <guid>http://null.computer#posts/05-why-build-from-scratch.md</guid>
+            <pubDate>Mon, 02 Jan 2017 08:14:05 GMT</pubDate>
+            <description><![CDATA[<h2 id="why-build-from-scratch-">Why build from scratch?</h2>
+<p>I&#39;ve been creating this blog and writing these posts and you might be wondering... why? There are plenty of existing blogging solutions out there. Why re-invent the wheel?</p>
+<p>In a way, null.computer is a meta project to keep me coding and growing. I&#39;ve had blogs in the past, but never stayed motivated enough to keep them updated.</p>
+<h4 id="this-blog-is-an-exploration-in-computers-coding-and-all-things-possible-therein-">This blog is an exploration in computers, coding and all things possible therein.</h4>
+<h3 id="-icecream-exhibit-a-vanilla-js">:icecream: Exhibit A: Vanilla JS</h3>
+<p>Checkout the source for this page.</p>
+<p>Go ahead, I&#39;ll wait. (CTRL+U or CMD+U in Chrome).</p>
+<p>You may notice that there is only 1 external library linked. Aside from the <a href="https://github.com/github/fetch">fetch polyfil</a>, everything else is 100% Fair Trade Certified Organic Grade A Hand Crafted DIY Vanilla JavaScript.</p>
+<p>I&#39;ve been challenging myself lately to minimize library usage and stay as vanilla as possible, combined with my desire to keep learning and growing, this blog is an extension of that.</p>
+<h3 id="-tada-exhibit-b-js-is-fun">:tada: Exhibit B: JS is fun</h3>
+<p>Promises, arrow functions, template literals, array methods (map, filter, reduce), Browser APIs (Service Workers, fetch, etc.) and everything else JavaScript all make coding in JavaScript really fun even without using the latest library/framework.</p>
+<p>The JS code for this site is 100% supported in Chrome without any need for transpiling. I&#39;ll probably add transpiling soon (damn you older browsers!), but this just speaks to the awesomeness that JS has become.</p>
+<p>I&#39;ll will also definitely eventually blog about various interesting libraries and frameworks, but if it can be done in a few lines with Vanilla JS I&#39;ll make the effort to do so.</p>
+<h3 id="-1234-exhibit-c-new-posts-days-ever">:1234: Exhibit C: # new posts/# days &gt; ever</h3>
+<p>I&#39;ve made more posts in the past 3 days than ever before in my blogging history.</p>
+<h2 id="final-thoughts">Final Thoughts</h2>
+<p>As long as there are things I want to add to this blog (SSL, comments, searching, SEO etc. etc.) I&#39;ll keep on coding and web logging.</p>
+<p>Thanks for reading this far down. Stay tuned for more. :vulcan_salute:</p>
+]]></description>
+            <author>
+                <name>CJ R.</name>
+                <email>hello@cjr.co.de</email>
+                <link>https://github.com/w3cj</link>
+            </author>
+        </item>
         <item>
             <title><![CDATA[RSS/Atom Feed Generator]]></title>
             <link>http://null.computer#posts/04-feed-generator.md</link>
             <guid>http://null.computer#posts/04-feed-generator.md</guid>
-            <pubDate>Mon, 02 Jan 2017 02:46:09 GMT</pubDate>
+            <pubDate>Mon, 02 Jan 2017 03:01:25 GMT</pubDate>
             <description><![CDATA[<h2 id="rss-atom-feed-generator">RSS/Atom Feed Generator</h2>
 <p>The fantastic <a href="https://github.com/dannyfritz">Mr. Fritz</a> (aka Danny) <a href="https://github.com/w3cj/null.computer/issues/1">pointed out</a> that every great blog has a consumable feed. Well Mr. Fritz, this one is for you!</p>
 <p>null.computer now proudly broadcasts updates to the world!</p>
