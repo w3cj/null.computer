@@ -19,12 +19,12 @@ Promises, arrow functions, template literals, array methods (map, filter, reduce
 
 The JS code for this site is 100% supported in Chrome without any need for transpiling. I'll probably add transpiling soon (damn you older browsers!), but this just speaks to the awesomeness that JS has become.
 
-I'll will also definitely eventually blog about various interesting libraries and frameworks, but if it can be done in a few lines with Vanilla JS I'll make the effort to do so.
+I will also definitely eventually blog about various interesting libraries and frameworks, but if it can be done in a few lines with Vanilla JS I'll make the effort to do so.
 
 ### :1234: Exhibit C: # new posts/# days > ever
 I've made more posts in the past 3 days than ever before in my blogging history.
 
 ### Final Thoughts
-As long as there are things I want to add to this blog (SSL, comments, searching, SEO etc. etc.) I'll keep on coding and web logging.
+As long as there are things I want to add to this web log (SSL, comments, searching, SEO, SPA, etc. etc. etc.) I'll keep on coding and web logging.
 
 Thanks for reading this far down. Stay tuned for more. :vulcan_salute:
