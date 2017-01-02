@@ -24,7 +24,7 @@ I'll will also definitely eventually blog about various interesting libraries an
 ### :1234: Exhibit C: # new posts/# days > ever
 I've made more posts in the past 3 days than ever before in my blogging history.
 
-## Final Thoughts
+### Final Thoughts
 As long as there are things I want to add to this blog (SSL, comments, searching, SEO etc. etc.) I'll keep on coding and web logging.
 
 Thanks for reading this far down. Stay tuned for more. :vulcan_salute:

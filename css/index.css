@@ -31,7 +31,7 @@ a {
 	flex-direction: row;
 }
 
-section h2 {
+section h2:first-child {
 	color: red;
 	text-align: center;
 }
