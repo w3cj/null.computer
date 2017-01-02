@@ -4,11 +4,26 @@ body {
 	padding: 3em;
 	font-size: 1.5em;
 	font-family: monospace;
-	cursor: url(//s3-us-west-2.amazonaws.com/s.cdpn.io/3174/cursor.png), auto;
+	cursor: url(img/cursor.png), auto;
+}
+
+a {
+	cursor: url(img/hand.png), auto;
 }
 
 .computer {
 	font-size: 1vw;
+}
+
+.center-flex {
+	display: flex;
+	align-items: center;
+}
+
+.feeds {
+	display: flex;
+	flex-direction: column;
+	margin-left: 1em;
 }
 
 .logo-nav {

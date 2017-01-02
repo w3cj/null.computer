@@ -2,12 +2,21 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title></title>
+		<title>null.computer</title>
+		<link href="feed.atom" type="application/atom+xml" rel="alternate" title="null.computer: A web log by w3cj." />
+		<link href="feed.rss" type="application/rss+xml" rel="alternate" title="null.computer: A web log by w3cj."  />
 		<link rel="stylesheet" href="css/index.css">
 	</head>
 	<body>
 		<header>
 			<p>null.computer: A web log by <a href="https://github.com/w3cj">w3cj</a>.</p>
+			<p class="center-flex">
+				<img style="height:30px" src="img/feed.svg" alt="feed">
+				<span class="feeds">
+					<a href="feed.atom">Atom 1.0</a>
+					<a href="feed.rss">RSS 2.0</a>
+				</span>
+			</p>
 			<div class="logo-nav">
 				<pre class="computer">
 	           __________________________________________________________
@@ -49,8 +58,9 @@
 			<!-- https://api.github.com/repos/w3cj/null.computer/contents/posts -->
 		</main>
 		<footer>
-			<small>Built with ❤ by <a href="https://github.com/w3cj/null.computer">w3cj<a/></small>
+			<small>Built with ❤ by <a href="https://github.com/w3cj/null.computer">w3cj</a></small>
 		</footer>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.1/fetch.min.js"></script>
 		<script src="js/gh-blog.js" charset="utf-8"></script>
 		<script src="js/posts.js" charset="utf-8"></script>
 	</body>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+    <channel>
+        <title>null.computer</title>
+        <description>A web log by w3cj</description>
+        <link>http://null.computer</link>
+        <lastBuildDate>Mon, 02 Jan 2017 01:36:42 GMT</lastBuildDate>
+        <docs>http://blogs.law.harvard.edu/tech/rss</docs>
+        <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Using the Github Commits API for Post Metadata]]></title>
+            <link>http://null.computer#posts/03-post-commits-api.md</link>
+            <guid>http://null.computer#posts/03-post-commits-api.md</guid>
+            <pubDate>Sun, 01 Jan 2017 17:09:40 GMT</pubDate>
+            <description><![CDATA[<h2 id="using-the-github-commits-api-for-post-metadata">Using the Github Commits API for Post Metadata</h2>
+<p>I wanted to add a dynamic <code>created</code> and <code>updated</code> date to the posts for this blog. For this I found the <a href="https://developer.github.com/v3/repos/commits/">commits API endpoint</a>.</p>
+<p>Using this endpoint, I was able to get all of the commits for each post and determine a created and updated date.</p>
+<pre><code class="lang-js">const created = commits[commits.length - 1].commit.author.date;
+const updated = commits[0].commit.author.date;
+</code></pre>
+<p>My JS template literals are starting to look a lot like jsx...</p>
+<pre><code class="lang-js">`
+&lt;small&gt;&lt;strong&gt;Path:&lt;/strong&gt; ${post.path}&lt;/small&gt;&lt;br&gt;
+&lt;small&gt;&lt;strong&gt;Logged:&lt;/strong&gt; ${post.commits.created}&lt;/small&gt;
+${ post.commits.updated == post.commits.created ? &#39;&#39; :
+    `&lt;br&gt;&lt;small&gt;&lt;strong&gt;Updated:&lt;/strong&gt; ${post.commits.updated}&lt;/small&gt;` }
+`
+</code></pre>
+<p>I also did a little refactoring and will potentially move the blog code into an npm module. For now, this site now comprises of 2 JS files instead of 1! 🤓</p>
+]]></description>
+            <author>
+                <name>CJ R.</name>
+                <email>hello@cjr.co.de</email>
+                <link>https://github.com/w3cj</link>
+            </author>
+        </item>
+        <item>
+            <title><![CDATA[Github API Based Static Blog]]></title>
+            <link>http://null.computer#posts/02-github-api-blog.md</link>
+            <guid>http://null.computer#posts/02-github-api-blog.md</guid>
+            <pubDate>Sun, 01 Jan 2017 17:09:40 GMT</pubDate>
+            <description><![CDATA[<h2 id="github-api-based-static-blog">Github API Based Static Blog</h2>
+<p>Instead of using a static site generator to create a blog hosted on github-pages, I thought it would be an interesting challenge to create a static blog using only the <a href="https://developer.github.com/v3/">github API</a>.</p>
+<p>The github API offers up a few endpoints of interest:</p>
+<ul>
+<li><a href="https://developer.github.com/v3/repos/contents/">Repo Contents</a></li>
+<li><a href="https://developer.github.com/v3/media/">Media Types</a></li>
+</ul>
+<h3 id="basic-idea">Basic Idea</h3>
+<p>Store blog <a href="https://github.com/w3cj/null.computer/tree/master/posts">posts in markdown files in a git repo</a>. Then use the github repo contents API to dynamically retrieve and render those markdown files.</p>
+<h3 id="easy-enough">Easy Enough</h3>
+<p>It actually didn&#39;t take too much code for a basic proof of concept with post caching in localStorage!</p>
+<p>This is the code making this page work (as of December 31st 2016 10:39 AM):</p>
+<pre><code class="lang-js">const API_URL = &#39;https://api.github.com&#39;;
+const REPO_URL = `${API_URL}/repos/w3cj/null.computer/contents/posts`;
+
+fetch(REPO_URL)
+  .then(result =&gt; result.json())
+  .then(infos =&gt; Promise.all(infos.reverse().map(loadPost)))
+  .then(posts =&gt; posts
+                  .reduce((html, post) =&gt;
+                  `${html}&lt;section&gt;${post}&lt;/section&gt;&lt;hr&gt;`,
+                  &#39;&lt;hr&gt;&#39;))
+  .then(html =&gt; document.querySelector(&#39;#posts&#39;).innerHTML = html);
+
+function loadPost(info) {
+  const loadedSha = localStorage[`${info.path}-sha`];
+  if(loadedSha &amp;&amp; loadedSha == info.sha) {
+    const loadedHTML = localStorage[`${info.path}-html`];
+    return Promise.resolve(loadedHTML);
+  } else {
+    return fetch(info.url, {
+        headers: {
+          accept: &#39;application/vnd.github.v3.html+json&#39;
+        }
+      }).then(result =&gt; result.text())
+      .then(html =&gt; {
+        localStorage[`${info.path}-sha`] = info.sha;
+        localStorage[`${info.path}-html`] = html;
+        return html;
+      });
+  }
+}
+</code></pre>
+<h3 id="future-plans">Future Plans</h3>
+<p>Right now, all files in the <a href="https://github.com/w3cj/null.computer/tree/master/posts"><code>posts</code> folder of this repo</a> will be added to this page. As this blog grows, this will not scale. Eventually I would like to add SPA style single page posts and lazy loading.</p>
+<p>The posts are simple markdown files right now. In the future, I could incorporate metadata at the top of a file to add title, date, tags etc.</p>
+]]></description>
+            <author>
+                <name>CJ R.</name>
+                <email>hello@cjr.co.de</email>
+                <link>https://github.com/w3cj</link>
+            </author>
+        </item>
+        <item>
+            <title><![CDATA[Hello Friend]]></title>
+            <link>http://null.computer#posts/01-hello-friend.md</link>
+            <guid>http://null.computer#posts/01-hello-friend.md</guid>
+            <pubDate>Sun, 01 Jan 2017 17:09:40 GMT</pubDate>
+            <description><![CDATA[<h2 id="hello-friend">Hello Friend</h2>
+<p>I will log things here.</p>
+<pre><code class="lang-js">function helloFriend() {
+  console.log(&#39;null.computer&#39;);
+}
+</code></pre>
+]]></description>
+            <author>
+                <name>CJ R.</name>
+                <email>hello@cjr.co.de</email>
+                <link>https://github.com/w3cj</link>
+            </author>
+        </item>
+    </channel>
+</rss>
