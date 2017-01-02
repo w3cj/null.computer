@@ -3,7 +3,7 @@ I've been creating this blog and writing these posts and you might be wondering.
 
 In a way, null.computer is a meta project to keep me coding and growing. I've had blogs in the past, but never stayed motivated enough to keep them updated.
 
-#### This blog is an exploration in computers, coding and all things possible therein.
+#### This blog is an exploration in coding, computers and all things possible therein.
 
 ### :icecream: Exhibit A: Vanilla JS
 Checkout the source for this page.
