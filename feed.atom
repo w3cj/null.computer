@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://null.computer</id>
     <title>null.computer</title>
-    <updated>2017-01-02T02:44:57Z</updated>
+    <updated>2017-01-02T03:01:03Z</updated>
     <author>
         <name>CJ R.</name>
         <email>hello@cjr.co.de</email>
@@ -16,7 +16,7 @@
         <id>http://null.computer#posts/04-feed-generator.md</id>
         <link href="http://null.computer#posts/04-feed-generator.md">
         </link>
-        <updated>2017-01-02T02:44:57Z</updated>
+        <updated>2017-01-02T02:46:09Z</updated>
         <summary type="html"><![CDATA[<h2 id="rss-atom-feed-generator">RSS/Atom Feed Generator</h2>
 <p>The fantastic <a href="https://github.com/dannyfritz">Mr. Fritz</a> (aka Danny) <a href="https://github.com/w3cj/null.computer/issues/1">pointed out</a> that every great blog has a consumable feed. Well Mr. Fritz, this one is for you!</p>
 <p>null.computer now proudly broadcasts updates to the world!</p>
@@ -52,7 +52,7 @@ function getCommits(path) {
   });
 }
 </code></pre>
-<p>Lastly, I used <a href="https://www.npmjs.com/package/feed"><code>feed</code></a> to generate the generate RSS 2.0 and Atom 1.0 feeds..</p>
+<p>Lastly, I used <a href="https://www.npmjs.com/package/feed"><code>feed</code></a> to generate the RSS 2.0 and Atom 1.0 feeds.</p>
 <p><a href="https://www.npmjs.com/package/feed"><code>feed</code></a> has a simple API:</p>
 <pre><code class="lang-js">const Feed = require(&#39;feed&#39;);
 
@@ -93,7 +93,7 @@ console.log(xml);
             <email>hello@cjr.co.de</email>
             <uri>https://github.com/w3cj</uri>
         </author>
-        <published>2017-01-02T02:44:57Z</published>
+        <published>2017-01-02T02:46:09Z</published>
     </entry>
     <entry>
         <title type="html"><![CDATA[Using the Github Commits API for Post Metadata]]></title>

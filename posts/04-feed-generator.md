@@ -42,7 +42,7 @@ function getCommits(path) {
 }
 ```
 
-Lastly, I used [`feed`](https://www.npmjs.com/package/feed) to generate the generate RSS 2.0 and Atom 1.0 feeds..
+Lastly, I used [`feed`](https://www.npmjs.com/package/feed) to generate the RSS 2.0 and Atom 1.0 feeds.
 
 [`feed`](https://www.npmjs.com/package/feed) has a simple API:
 
