@@ -28,3 +28,5 @@ I've made more posts in the past 3 days than ever before in my blogging history.
 As long as there are things I want to add to this web log (SSL, comments, searching, SEO, SPA, etc. etc. etc.) I'll keep on coding and web logging.
 
 Thanks for reading this far down. Stay tuned for more. :vulcan_salute:
+
+:balloon:
