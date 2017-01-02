@@ -8,7 +8,7 @@ class GHBlog {
   getPosts() {
     return fetch(this.POSTS_URL)
       .then(result => result.json())
-      .then(infos => Promise.all(infos.reverse().map(this.loadPost.bind(this))));
+      .then(infos => Promise.all(infos.map(this.loadPost.bind(this))));
     }
 
   loadPost(info) {
@@ -16,7 +16,7 @@ class GHBlog {
     if(loadedSha && loadedSha == info.sha) {
       const html = localStorage[`${info.path}-html`];
       const commits = JSON.parse(localStorage[`${info.path}-commits`]);
-      return Promise.resolve({html, commits, path: info.path});
+      return Promise.resolve({html, commits, path: info.path, sha: info.sha});
     } else {
       return Promise.all([
           this.fetchPost(info.url),
@@ -26,7 +26,7 @@ class GHBlog {
           localStorage[`${info.path}-sha`] = info.sha;
           localStorage[`${info.path}-html`] = html;
           localStorage[`${info.path}-commits`] = JSON.stringify(commits);
-          return {html, commits, path: info.path};
+          return {html, commits, path: info.path, sha: info.sha};
         });
     }
   }
