@@ -1,24 +1,28 @@
+const VERSION = '1.0.0';
+
+setVersion(VERSION);
+
 const postsElement = document.querySelector('#posts');
 const postLinksElement = document.querySelector('.post-links');
-
-if(localStorage.postsHTML) {
-  postsElement.innerHTML = localStorage.postsHTML;
-} else {
-  localStorage.clear();
-}
 
 loadBlog();
 
 function loadBlog() {
+  if(localStorage.postsHTML) {
+    postsElement.innerHTML = localStorage.postsHTML;
+  }
+
   const ghBlog = new GHBlog('w3cj', 'null.computer');
 
   ghBlog
     .getPosts()
     .then(addPosts)
     .then(() => {
-      localStorage.postsHTML = postsElement.innerHTML;
+      localStorage.postsHTML = postsElement.innerHTML
+    }).then(navigateToHash)
+    .then(() => {
       document.querySelector('.loading').style.display = 'none';
-    }).then(navigateToHash);
+    });
 }
 
 function addPosts(posts) {
@@ -27,7 +31,7 @@ function addPosts(posts) {
 
     const postElement = document.getElementById(post.path);
     if(postElement) {
-      if(post.sha != localStorage[`${post.path}-sha`]) {
+      if(post.updated) {
         postElement.innerHTML = getPostHTML(post);
       }
     } else {
@@ -68,4 +72,11 @@ function navigateToHash() {
   const currentHash = window.location.hash;
   window.location.hash = '';
   window.location.hash = currentHash;
+}
+
+function setVersion() {
+  if(localStorage.version != VERSION) {
+    localStorage.clear();
+    localStorage.version = VERSION;
+  }
 }

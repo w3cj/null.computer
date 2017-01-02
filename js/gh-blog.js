@@ -14,9 +14,7 @@ class GHBlog {
   loadPost(info) {
     const loadedSha = localStorage[`${info.path}-sha`];
     if(loadedSha && loadedSha == info.sha) {
-      const html = localStorage[`${info.path}-html`];
-      const commits = JSON.parse(localStorage[`${info.path}-commits`]);
-      return Promise.resolve({html, commits, path: info.path, sha: info.sha});
+      return Promise.resolve({path: info.path, sha: info.sha});
     } else {
       return Promise.all([
           this.fetchPost(info.url),
@@ -24,9 +22,7 @@ class GHBlog {
         ]).then(results => {
           const [html, commits] = results;
           localStorage[`${info.path}-sha`] = info.sha;
-          localStorage[`${info.path}-html`] = html;
-          localStorage[`${info.path}-commits`] = JSON.stringify(commits);
-          return {html, commits, path: info.path, sha: info.sha};
+          return {html, commits, path: info.path, sha: info.sha, updated: true};
         });
     }
   }
